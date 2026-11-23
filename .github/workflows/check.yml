@@ -1,0 +1,27 @@
+name: Check
+
+# On every push: the tools' tests, an index built from catalog/ as the app would accept it,
+# and the publish workflow's signing step with a throwaway key (no secrets involved).
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Install minisign
+        run: sudo apt-get update -qq && sudo apt-get install -y minisign
+      - name: Build and sign an index with a throwaway key
+        run: |
+          printf 'throwaway\nthrowaway\n' | minisign -G -p "$RUNNER_TEMP/t.pub" -s "$RUNNER_TEMP/t.key"
+          node tools/build-index.mjs --sequence 0 --key "$RUNNER_TEMP/t.pub"
+          MINISIGN_SECRET_KEY="$(cat "$RUNNER_TEMP/t.key")" MINISIGN_PASSWORD=throwaway \
+            tools/sign.sh "$RUNNER_TEMP/t.pub"

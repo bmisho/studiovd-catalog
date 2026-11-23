@@ -1,0 +1,12 @@
+{
+  "name": "studiovd-catalog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tools/*.test.mjs\"",
+    "build-index": "node tools/build-index.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0"
+  }
+}

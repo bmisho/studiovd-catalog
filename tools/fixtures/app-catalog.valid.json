@@ -1,0 +1,43 @@
+{
+  "format": "studiovd-catalog",
+  "schemaVersion": 1,
+  "catalogId": "official",
+  "sequence": 42,
+  "generatedAt": "2026-10-26T09:00:00Z",
+  "expiresAt": "2026-11-26T09:00:00Z",
+  "minAppVersion": "0.9.0",
+  "signingKeyId": "0123456789ABCDEF",
+  "mirrors": ["https://github.com/bmisho/studiovd-library/releases/download/v2026.10.1"],
+  "categories": [{ "path": ["mechanical", "knobs"], "label": "Knobs", "order": 3 }],
+  "components": [
+    {
+      "id": "acme/knob-15mm",
+      "version": "2.1.0-beta.1",
+      "name": "Knob 15 mm",
+      "summary": "A knurled knob for 6 mm D shafts",
+      "category": ["mechanical", "knobs"],
+      "tags": ["knob"],
+      "domains": [],
+      "partCount": 1,
+      "triangles": 1200,
+      "hasSchematic": false,
+      "license": { "geometry": "CC-BY-4.0", "data": "CC0-1.0" },
+      "requires": { "app": ">=0.1.0 <2.0.0" },
+      "manifestSha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "pack": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "thumbnail": { "pack": "1111111111111111111111111111111111111111111111111111111111111111", "path": "components/acme/knob-15mm/2.1.0-beta.1/thumbnail.png", "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" },
+      "publishedAt": "2026-10-26T09:00:00Z"
+    }
+  ],
+  "packs": {
+    "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff": { "url": "v2026.10.1/knobs.stvdpack", "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "bytes": 90000, "uncompressedBytes": 100580, "entries": 6 },
+    "1111111111111111111111111111111111111111111111111111111111111111": { "url": "v2026.10.1/previews-mechanical.stvdpack", "sha256": "1111111111111111111111111111111111111111111111111111111111111111", "bytes": 20000, "uncompressedBytes": 20500, "entries": 2 }
+  },
+  "bundles": [
+    { "id": "knobs-all", "label": "All knobs", "pack": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "components": [{ "id": "acme/knob-15mm", "version": "2.1.0-beta.1" }] }
+  ],
+  "previewPacks": { "mechanical/knobs": "1111111111111111111111111111111111111111111111111111111111111111" },
+  "generatorPresets": [],
+  "revoked": [],
+  "notices": [{ "id": "welcome", "severity": "info", "text": "Packs are signed; mirrors are not trusted." }]
+}

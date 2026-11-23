@@ -1,0 +1,9 @@
+{
+  "catalogId": "official",
+  "minAppVersion": "0.1.0",
+  "validDays": 90,
+  "mirrors": ["https://github.com/bmisho/studiovd-catalog/releases/download/"],
+  "categories": [],
+  "revoked": [],
+  "notices": []
+}

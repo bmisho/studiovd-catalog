@@ -1,0 +1,577 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "studiovd-catalog"
+    },
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "catalogId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "generatedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?Z$"
+    },
+    "expiresAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?Z$"
+    },
+    "minAppVersion": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+){0,7}))?$"
+    },
+    "signingKeyId": {
+      "type": "string",
+      "pattern": "^[0-9A-F]{16}$"
+    },
+    "mirrors": {
+      "minItems": 1,
+      "maxItems": 8,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 2048,
+        "pattern": "^https:\\/\\/[A-Za-z0-9.-]+(:\\d{1,5})?(\\/[^\\s\"<>\\\\^`{|}]*)?$"
+      }
+    },
+    "categories": {
+      "maxItems": 500,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "minItems": 1,
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+            }
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "order": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "path",
+          "label",
+          "order"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "components": {
+      "maxItems": 50000,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,31}\\/[a-z0-9][a-z0-9._-]{0,63}$"
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+){0,7}))?$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 280
+          },
+          "category": {
+            "minItems": 1,
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+            }
+          },
+          "tags": {
+            "maxItems": 32,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9 ._+-]{0,31}$"
+            }
+          },
+          "family": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+          },
+          "vendor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "mpn": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "domains": {
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "electrical",
+                "mechTranslational",
+                "mechRotational",
+                "fluid",
+                "light",
+                "data"
+              ]
+            }
+          },
+          "partCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 64
+          },
+          "triangles": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5000000
+          },
+          "hasSchematic": {
+            "type": "boolean"
+          },
+          "license": {
+            "type": "object",
+            "properties": {
+              "geometry": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "data": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "geometry",
+              "data"
+            ],
+            "additionalProperties": false
+          },
+          "requires": {
+            "type": "object",
+            "properties": {
+              "app": {
+                "type": "string"
+              },
+              "generators": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "pattern": "^[a-z][a-zA-Z0-9]*(\\.[a-z][a-zA-Z0-9]*){1,3}$"
+                },
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 999
+                }
+              }
+            },
+            "required": [
+              "app"
+            ],
+            "additionalProperties": false
+          },
+          "manifestSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "pack": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "thumbnail": {
+            "type": "object",
+            "properties": {
+              "pack": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "path": {
+                "type": "string",
+                "maxLength": 200,
+                "pattern": "^[A-Za-z0-9_-][A-Za-z0-9._-]*(\\/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            },
+            "required": [
+              "pack",
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false
+          },
+          "publishedAt": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?Z$"
+          },
+          "deprecated": {
+            "type": "object",
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 280
+              },
+              "replacedBy": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{1,31}\\/[a-z0-9][a-z0-9._-]{0,63}$"
+              }
+            },
+            "required": [
+              "reason"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "name",
+          "summary",
+          "category",
+          "tags",
+          "domains",
+          "partCount",
+          "triangles",
+          "hasSchematic",
+          "license",
+          "requires",
+          "manifestSha256",
+          "pack",
+          "thumbnail",
+          "publishedAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "packs": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "maxLength": 512,
+            "pattern": "^[A-Za-z0-9_-][A-Za-z0-9._-]*(\\/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 536870912
+          },
+          "uncompressedBytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 2147483648
+          },
+          "entries": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20001
+          }
+        },
+        "required": [
+          "url",
+          "sha256",
+          "bytes",
+          "uncompressedBytes",
+          "entries"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "bundles": {
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "pack": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "components": {
+            "minItems": 1,
+            "maxItems": 1000,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{1,31}\\/[a-z0-9][a-z0-9._-]{0,63}$"
+                },
+                "version": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "pattern": "^(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+){0,7}))?$"
+                }
+              },
+              "required": [
+                "id",
+                "version"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "pack",
+          "components"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "previewPacks": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "maxLength": 200
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "generatorPresets": {
+      "maxItems": 5000,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,31}\\/[a-z0-9][a-z0-9._-]{0,63}$"
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+){0,7}))?$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "category": {
+            "minItems": 1,
+            "maxItems": 4,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+            }
+          },
+          "tags": {
+            "maxItems": 32,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9 ._+-]{0,31}$"
+            }
+          },
+          "generator": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z][a-zA-Z0-9]*(\\.[a-z][a-zA-Z0-9]*){1,3}$"
+          },
+          "generatorMajor": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999
+          },
+          "params": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9_]{0,31}$"
+            },
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          },
+          "manifestSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "pack": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "name",
+          "category",
+          "tags",
+          "generator",
+          "generatorMajor",
+          "params",
+          "manifestSha256",
+          "pack"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "revoked": {
+      "maxItems": 10000,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,31}\\/[a-z0-9][a-z0-9._-]{0,63}$"
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})\\.(0|[1-9]\\d{0,8})(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+){0,7}))?$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 280
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "yanked",
+              "security"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "reason",
+          "severity"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "notices": {
+      "maxItems": 16,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "info",
+              "warning"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "id",
+          "severity",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "format",
+    "schemaVersion",
+    "catalogId",
+    "sequence",
+    "generatedAt",
+    "expiresAt",
+    "minAppVersion",
+    "signingKeyId",
+    "mirrors",
+    "categories",
+    "components",
+    "packs",
+    "bundles",
+    "previewPacks",
+    "generatorPresets",
+    "revoked",
+    "notices"
+  ],
+  "additionalProperties": false
+}
