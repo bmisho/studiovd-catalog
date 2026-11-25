@@ -1,0 +1,115 @@
+name: Build packs
+
+# Builds the content packs from content/kicad: the KiCad files pinned in lock.json, StudioVD's
+# own builder at the commit catalog/app.json names (tools/packs), then StudioVD's own install
+# code checks every pack as the online catalog would install it. Passing packs are released
+# as packs-N (never latest), recorded in catalog/packs.json, and Publish catalog is started
+# to sign an index that lists them. Run by hand after content/ or catalog/app.json changes.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pinned StudioVD commit
+        id: app
+        run: |
+          echo "repository=$(jq -r .repository catalog/app.json)" >> "$GITHUB_OUTPUT"
+          echo "commit=$(jq -r .commit catalog/app.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.app.outputs.repository }}
+          ref: ${{ steps.app.outputs.commit }}
+          path: app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            app/package-lock.json
+      - run: npm ci && npm test
+      - run: npm ci
+        working-directory: app
+      - name: Chromium for thumbnails
+        run: npx playwright install --with-deps chromium
+        working-directory: app
+      - name: WebKitGTK toolchain (the app's crate builds against it)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libxdo-dev libssl-dev \
+            libayatana-appindicator3-dev librsvg2-dev
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app/src-tauri
+
+      - name: Next pack release
+        id: tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          last=$(gh release list --limit 1000 --json tagName --jq '.[].tagName' \
+            | sed -n 's/^packs-\([0-9][0-9]*\)$/\1/p' | sort -n | tail -1)
+          echo "tag=packs-$(( ${last:-0} + 1 ))" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch the pinned KiCad files
+        run: node tools/kicad-sources.mjs fetch --out "$RUNNER_TEMP/sources"
+
+      - name: Build the packs
+        working-directory: app
+        run: |
+          node tools/packs/run.mjs /tools/packs/cli.ts \
+            --recipes "$GITHUB_WORKSPACE/content/kicad/packs" \
+            --sources "$RUNNER_TEMP/sources" \
+            --kicad-tag "$(jq -r .tag "$GITHUB_WORKSPACE/content/kicad/lock.json")" \
+            --tag "${{ steps.tag.outputs.tag }}" \
+            --out "$GITHUB_WORKSPACE/dist/packs"
+
+      - name: Record them and build an index as StudioVD would accept it
+        run: |
+          node tools/merge-packs.mjs dist/packs/published.json
+          node tools/build-index.mjs --sequence 0 --key keys/active.pub --out dist/check/index.json
+
+      - name: Install every pack with StudioVD's own code
+        env:
+          STUDIOVD_CHECK_INDEX: ${{ github.workspace }}/dist/check/index.json
+          STUDIOVD_CHECK_PACKS: ${{ github.workspace }}/dist/packs
+        run: >
+          cargo test --locked --manifest-path app/src-tauri/Cargo.toml
+          official_packs_install -- --ignored --nocapture
+
+      - name: Release the packs (never latest)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          kicad=$(jq -r .tag content/kicad/lock.json)
+          app=$(jq -r .commit catalog/app.json)
+          # A draft first: with immutable releases, assets go in before publishing.
+          gh release create "$TAG" dist/packs/*.stvdpack dist/packs/*.previews.zip --draft \
+            --target "$GITHUB_SHA" --title "Packs ${TAG#packs-}" \
+            --notes "Content packs built from KiCad libraries $kicad with StudioVD $app. Install them from StudioVD's Library (Online catalog); the signed index vouches for their SHA-256."
+          gh release edit "$TAG" --draft=false --latest=false
+
+      - name: Commit catalog/packs.json and publish a new index
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog/packs.json
+          git commit -m "Packs: record $TAG"
+          git push origin HEAD:main
+          gh workflow run publish.yml --ref main

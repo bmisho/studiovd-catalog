@@ -1,0 +1,203 @@
+{
+  "pack": "kicad-modules",
+  "label": "Boards and relays (KiCad)",
+  "category": [
+    "electronics",
+    "modules"
+  ],
+  "components": [
+    {
+      "id": "official/raspberry-pi-pico",
+      "version": "1.0.0",
+      "name": "Raspberry Pi Pico",
+      "summary": "RP2040 microcontroller board, castellated edge (no headers).",
+      "category": [
+        "electronics",
+        "modules"
+      ],
+      "tags": [
+        "raspberry pi",
+        "pico",
+        "rp2040",
+        "microcontroller",
+        "board"
+      ],
+      "footprint": "Module.pretty/RaspberryPi_Pico_SMD_HandSolder.kicad_mod",
+      "family": "raspberry-pi-pico",
+      "designatorPrefix": "U",
+      "vendor": "Raspberry Pi",
+      "mpn": "SC0915",
+      "pins": {
+        "1": "GP0",
+        "2": "GP1",
+        "3": "GND",
+        "4": "GP2",
+        "5": "GP3",
+        "6": "GP4",
+        "7": "GP5",
+        "8": "GND",
+        "9": "GP6",
+        "10": "GP7",
+        "11": "GP8",
+        "12": "GP9",
+        "13": "GND",
+        "14": "GP10",
+        "15": "GP11",
+        "16": "GP12",
+        "17": "GP13",
+        "18": "GND",
+        "19": "GP14",
+        "20": "GP15",
+        "21": "GP16",
+        "22": "GP17",
+        "23": "GND",
+        "24": "GP18",
+        "25": "GP19",
+        "26": "GP20",
+        "27": "GP21",
+        "28": "GND",
+        "29": "GP22",
+        "30": "RUN",
+        "31": "GP26/ADC0",
+        "32": "GP27/ADC1",
+        "33": "AGND",
+        "34": "GP28/ADC2",
+        "35": "ADC_VREF",
+        "36": "3V3(OUT)",
+        "37": "3V3_EN",
+        "38": "GND",
+        "39": "VSYS",
+        "40": "VBUS"
+      },
+      "pinsSource": {
+        "kind": "datasheet",
+        "ref": "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf",
+        "note": "Raspberry Pi Pico datasheet, pinout (pins 1-40)",
+        "confidence": "high"
+      },
+      "schematic": {
+        "block": "mcu.pico@1"
+      }
+    },
+    {
+      "id": "official/raspberry-pi-pico-h",
+      "version": "1.0.0",
+      "name": "Raspberry Pi Pico H",
+      "summary": "RP2040 microcontroller board with soldered headers.",
+      "category": [
+        "electronics",
+        "modules"
+      ],
+      "tags": [
+        "raspberry pi",
+        "pico",
+        "rp2040",
+        "microcontroller",
+        "board",
+        "headers"
+      ],
+      "footprint": "Module.pretty/RaspberryPi_Pico_Common_THT.kicad_mod",
+      "model": "Module.3dshapes/RaspberryPi_Pico_H.step",
+      "family": "raspberry-pi-pico",
+      "designatorPrefix": "U",
+      "vendor": "Raspberry Pi",
+      "mpn": "SC0917",
+      "pins": {
+        "1": "GP0",
+        "2": "GP1",
+        "3": "GND",
+        "4": "GP2",
+        "5": "GP3",
+        "6": "GP4",
+        "7": "GP5",
+        "8": "GND",
+        "9": "GP6",
+        "10": "GP7",
+        "11": "GP8",
+        "12": "GP9",
+        "13": "GND",
+        "14": "GP10",
+        "15": "GP11",
+        "16": "GP12",
+        "17": "GP13",
+        "18": "GND",
+        "19": "GP14",
+        "20": "GP15",
+        "21": "GP16",
+        "22": "GP17",
+        "23": "GND",
+        "24": "GP18",
+        "25": "GP19",
+        "26": "GP20",
+        "27": "GP21",
+        "28": "GND",
+        "29": "GP22",
+        "30": "RUN",
+        "31": "GP26/ADC0",
+        "32": "GP27/ADC1",
+        "33": "AGND",
+        "34": "GP28/ADC2",
+        "35": "ADC_VREF",
+        "36": "3V3(OUT)",
+        "37": "3V3_EN",
+        "38": "GND",
+        "39": "VSYS",
+        "40": "VBUS"
+      },
+      "pinsSource": {
+        "kind": "datasheet",
+        "ref": "https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf",
+        "note": "Raspberry Pi Pico datasheet, pinout (pins 1-40)",
+        "confidence": "high"
+      },
+      "schematic": {
+        "block": "mcu.pico@1"
+      }
+    },
+    {
+      "id": "official/relay-srd-05vdc",
+      "version": "1.0.0",
+      "name": "Relay 5 V, Songle SRD-05VDC",
+      "summary": "SPDT power relay, 5 V coil (the common blue hobby relay).",
+      "category": [
+        "electronics",
+        "relays"
+      ],
+      "tags": [
+        "relay",
+        "spdt",
+        "5 v",
+        "srd-05vdc",
+        "tht"
+      ],
+      "footprint": "Relay_THT.pretty/Relay_SPDT_SANYOU_SRD_Series_Form_C.kicad_mod",
+      "designatorPrefix": "K",
+      "vendor": "Songle",
+      "mpn": "SRD-05VDC-SL-C",
+      "schematic": {
+        "block": "electrical.relay@1"
+      },
+      "data": [
+        {
+          "what": "Coil resistance (block default 70 ohm)",
+          "value": "70 ohm",
+          "source": {
+            "kind": "datasheet",
+            "ref": "https://www.lcsc.com/product-detail/C35449.html",
+            "note": "LCSC C35449 listing (Songle SRD-05VDC-SL-C)",
+            "confidence": "high"
+          }
+        },
+        {
+          "what": "Pick-up / drop-out (block defaults 3.75 V / 0.5 V)",
+          "value": "75 % / 10 % of 5 V",
+          "source": {
+            "kind": "estimated",
+            "note": "typical for this relay class; not confirmed in a datasheet",
+            "confidence": "low"
+          }
+        }
+      ]
+    }
+  ]
+}

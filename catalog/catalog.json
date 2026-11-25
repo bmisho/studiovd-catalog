@@ -2,8 +2,82 @@
   "catalogId": "official",
   "minAppVersion": "0.1.0",
   "validDays": 90,
-  "mirrors": ["https://github.com/bmisho/studiovd-catalog/releases/download/"],
-  "categories": [],
+  "mirrors": [
+    "https://github.com/bmisho/studiovd-catalog/releases/download/"
+  ],
+  "categories": [
+    {
+      "path": [
+        "electronics"
+      ],
+      "label": "Electronics",
+      "order": 10
+    },
+    {
+      "path": [
+        "electronics",
+        "leds"
+      ],
+      "label": "LEDs",
+      "order": 11
+    },
+    {
+      "path": [
+        "electronics",
+        "passives"
+      ],
+      "label": "Resistors, capacitors, pots",
+      "order": 12
+    },
+    {
+      "path": [
+        "electronics",
+        "semiconductors"
+      ],
+      "label": "Diodes and packages",
+      "order": 13
+    },
+    {
+      "path": [
+        "electronics",
+        "switches"
+      ],
+      "label": "Switches",
+      "order": 14
+    },
+    {
+      "path": [
+        "electronics",
+        "connectors"
+      ],
+      "label": "Connectors",
+      "order": 15
+    },
+    {
+      "path": [
+        "electronics",
+        "power"
+      ],
+      "label": "Power",
+      "order": 16
+    },
+    {
+      "path": [
+        "electronics",
+        "relays"
+      ],
+      "label": "Relays",
+      "order": 17
+    },
+    {
+      "path": [
+        "electronics",
+        "modules"
+      ],
+      "label": "Boards and modules",
+      "order": 18
+    }
+  ],
   "revoked": [],
   "notices": []
 }

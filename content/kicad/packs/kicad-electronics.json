@@ -1,0 +1,395 @@
+{
+  "pack": "kicad-electronics",
+  "label": "Electronic components (KiCad)",
+  "category": [
+    "electronics"
+  ],
+  "components": [
+    {
+      "id": "official/led-5mm",
+      "version": "1.0.0",
+      "name": "LED 5 mm",
+      "summary": "Through-hole LED, 5 mm, leads 2.54 mm apart.",
+      "category": [
+        "electronics",
+        "leds"
+      ],
+      "tags": [
+        "led",
+        "5 mm",
+        "tht",
+        "indicator"
+      ],
+      "footprint": "LED_THT.pretty/LED_D5.0mm.kicad_mod",
+      "family": "led",
+      "designatorPrefix": "D",
+      "pins": {
+        "1": "Cathode (K)",
+        "2": "Anode (A)"
+      },
+      "pinsSource": {
+        "kind": "datasheet",
+        "note": "KiCad symbol Device:LED: pin 1 K, pin 2 A; KiCad LED footprints put pad 1 (square) on the cathode",
+        "confidence": "high"
+      },
+      "schematic": {
+        "block": "electrical.led@1"
+      }
+    },
+    {
+      "id": "official/led-3mm",
+      "version": "1.0.0",
+      "name": "LED 3 mm",
+      "summary": "Through-hole LED, 3 mm, leads 2.54 mm apart.",
+      "category": [
+        "electronics",
+        "leds"
+      ],
+      "tags": [
+        "led",
+        "3 mm",
+        "tht",
+        "indicator"
+      ],
+      "footprint": "LED_THT.pretty/LED_D3.0mm.kicad_mod",
+      "family": "led",
+      "designatorPrefix": "D",
+      "pins": {
+        "1": "Cathode (K)",
+        "2": "Anode (A)"
+      },
+      "pinsSource": {
+        "kind": "datasheet",
+        "note": "KiCad symbol Device:LED: pin 1 K, pin 2 A",
+        "confidence": "high"
+      },
+      "schematic": {
+        "block": "electrical.led@1"
+      }
+    },
+    {
+      "id": "official/resistor-axial-0207",
+      "version": "1.0.0",
+      "name": "Resistor, axial 1/4 W",
+      "summary": "Axial resistor, DIN 0207 body (6.3 x 2.5 mm), 10.16 mm pitch.",
+      "category": [
+        "electronics",
+        "passives"
+      ],
+      "tags": [
+        "resistor",
+        "axial",
+        "0207",
+        "tht"
+      ],
+      "footprint": "Resistor_THT.pretty/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod",
+      "designatorPrefix": "R",
+      "schematic": {
+        "block": "electrical.resistor@1"
+      }
+    },
+    {
+      "id": "official/diode-do41",
+      "version": "1.0.0",
+      "name": "Diode, DO-41 (1N4007)",
+      "summary": "Rectifier diode in a DO-41 package, 10.16 mm pitch.",
+      "category": [
+        "electronics",
+        "semiconductors"
+      ],
+      "tags": [
+        "diode",
+        "1n4007",
+        "do-41",
+        "rectifier",
+        "tht"
+      ],
+      "footprint": "Diode_THT.pretty/D_DO-41_SOD81_P10.16mm_Horizontal.kicad_mod",
+      "designatorPrefix": "D",
+      "mpn": "1N4007",
+      "pins": {
+        "1": "Cathode (K)",
+        "2": "Anode (A)"
+      },
+      "pinsSource": {
+        "kind": "datasheet",
+        "note": "KiCad symbol Device:D: pin 1 K, pin 2 A; pad 1 (square) is the cathode band",
+        "confidence": "high"
+      },
+      "schematic": {
+        "block": "electrical.diode@1",
+        "params": {
+          "vf": 1.1,
+          "ifRated": 1
+        }
+      },
+      "data": [
+        {
+          "what": "Forward voltage (block vf)",
+          "value": "1.1 V maximum at 1.0 A",
+          "source": {
+            "kind": "datasheet",
+            "ref": "https://www.vishay.com/docs/88503/1n4001.pdf",
+            "note": "Vishay 1N4001-1N4007, VF max",
+            "confidence": "medium"
+          }
+        },
+        {
+          "what": "At current (block ifRated)",
+          "value": "1.0 A",
+          "source": {
+            "kind": "datasheet",
+            "ref": "https://www.vishay.com/docs/88503/1n4001.pdf",
+            "note": "Vishay 1N4001-1N4007, IF(AV) 1.0 A",
+            "confidence": "high"
+          }
+        }
+      ]
+    },
+    {
+      "id": "official/capacitor-electrolytic-5mm",
+      "version": "1.0.0",
+      "name": "Electrolytic capacitor, 5 mm",
+      "summary": "Radial electrolytic capacitor, 5 mm diameter, 2 mm pitch.",
+      "category": [
+        "electronics",
+        "passives"
+      ],
+      "tags": [
+        "capacitor",
+        "electrolytic",
+        "radial",
+        "polarized",
+        "tht"
+      ],
+      "footprint": "Capacitor_THT.pretty/CP_Radial_D5.0mm_P2.00mm.kicad_mod",
+      "designatorPrefix": "C",
+      "pins": {
+        "1": "Positive (+)",
+        "2": "Negative (-)"
+      },
+      "pinsSource": {
+        "kind": "datasheet",
+        "note": "KiCad symbol Device:C_Polarized: pin 1 +; pad 1 is square",
+        "confidence": "high"
+      },
+      "schematic": {
+        "block": "electrical.capacitor@1"
+      }
+    },
+    {
+      "id": "official/capacitor-disc-5mm",
+      "version": "1.0.0",
+      "name": "Ceramic disc capacitor, 5 mm",
+      "summary": "Ceramic disc capacitor, 5 mm diameter, 5 mm pitch.",
+      "category": [
+        "electronics",
+        "passives"
+      ],
+      "tags": [
+        "capacitor",
+        "ceramic",
+        "disc",
+        "tht"
+      ],
+      "footprint": "Capacitor_THT.pretty/C_Disc_D5.0mm_W2.5mm_P5.00mm.kicad_mod",
+      "designatorPrefix": "C",
+      "schematic": {
+        "block": "electrical.capacitor@1"
+      }
+    },
+    {
+      "id": "official/tactile-switch-6mm",
+      "version": "1.0.0",
+      "name": "Tactile switch, 6 mm",
+      "summary": "6 x 6 mm through-hole push button (normally open).",
+      "category": [
+        "electronics",
+        "switches"
+      ],
+      "tags": [
+        "switch",
+        "push button",
+        "tactile",
+        "momentary",
+        "tht"
+      ],
+      "footprint": "Button_Switch_THT.pretty/SW_PUSH_6mm.kicad_mod",
+      "designatorPrefix": "SW",
+      "schematic": {
+        "block": "electrical.switch@1"
+      }
+    },
+    {
+      "id": "official/trimmer-bourns-3296w",
+      "version": "1.0.0",
+      "name": "Trimmer potentiometer, Bourns 3296W",
+      "summary": "Multi-turn trimmer, 3/8 in square, top adjust.",
+      "category": [
+        "electronics",
+        "passives"
+      ],
+      "tags": [
+        "potentiometer",
+        "trimmer",
+        "3296",
+        "tht"
+      ],
+      "footprint": "Potentiometer_THT.pretty/Potentiometer_Bourns_3296W_Vertical.kicad_mod",
+      "designatorPrefix": "RV",
+      "vendor": "Bourns",
+      "mpn": "3296W",
+      "pins": {
+        "1": "End",
+        "2": "Wiper",
+        "3": "End"
+      },
+      "pinsSource": {
+        "kind": "datasheet",
+        "note": "KiCad symbol Device:R_Potentiometer_Trim: pins 1 and 3 the track ends, 2 the wiper",
+        "confidence": "high"
+      },
+      "schematic": {
+        "block": "electrical.potentiometer@1"
+      }
+    },
+    {
+      "id": "official/barrel-jack-pj-063ah",
+      "version": "1.0.0",
+      "name": "DC barrel jack, CUI PJ-063AH",
+      "summary": "PCB-mount 2.0 mm pin DC power jack, horizontal.",
+      "category": [
+        "electronics",
+        "connectors"
+      ],
+      "tags": [
+        "dc jack",
+        "barrel jack",
+        "power",
+        "connector",
+        "tht"
+      ],
+      "footprint": "Connector_BarrelJack.pretty/BarrelJack_CUI_PJ-063AH_Horizontal.kicad_mod",
+      "designatorPrefix": "J",
+      "vendor": "CUI Devices",
+      "mpn": "PJ-063AH"
+    },
+    {
+      "id": "official/audio-jack-3.5mm-sj1-3523n",
+      "version": "1.0.0",
+      "name": "Audio jack 3.5 mm, CUI SJ1-3523N",
+      "summary": "3.5 mm stereo audio jack, PCB mount, horizontal.",
+      "category": [
+        "electronics",
+        "connectors"
+      ],
+      "tags": [
+        "audio jack",
+        "3.5 mm",
+        "stereo",
+        "connector",
+        "tht"
+      ],
+      "footprint": "Connector_Audio.pretty/Jack_3.5mm_CUI_SJ1-3523N_Horizontal.kicad_mod",
+      "designatorPrefix": "J",
+      "vendor": "CUI Devices",
+      "mpn": "SJ1-3523N"
+    },
+    {
+      "id": "official/terminal-block-5.08-2p",
+      "version": "1.0.0",
+      "name": "Terminal block, 2 way, 5.08 mm",
+      "summary": "Screw terminal block, 2 positions, 5.08 mm pitch (Phoenix MKDS 1,5).",
+      "category": [
+        "electronics",
+        "connectors"
+      ],
+      "tags": [
+        "terminal block",
+        "screw terminal",
+        "connector",
+        "tht"
+      ],
+      "footprint": "TerminalBlock_Phoenix.pretty/TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal.kicad_mod",
+      "designatorPrefix": "J",
+      "vendor": "Phoenix Contact",
+      "mpn": "MKDS 1,5/2-5,08"
+    },
+    {
+      "id": "official/package-to-220-3",
+      "version": "1.0.0",
+      "name": "TO-220 package, vertical",
+      "summary": "TO-220-3 package standing on the board (regulators, MOSFETs, transistors).",
+      "category": [
+        "electronics",
+        "semiconductors"
+      ],
+      "tags": [
+        "to-220",
+        "package",
+        "regulator",
+        "mosfet",
+        "tht"
+      ],
+      "footprint": "Package_TO_SOT_THT.pretty/TO-220-3_Vertical.kicad_mod",
+      "designatorPrefix": "U"
+    },
+    {
+      "id": "official/package-to-92",
+      "version": "1.0.0",
+      "name": "TO-92 package",
+      "summary": "TO-92 package, inline leads (small transistors, regulators, sensors).",
+      "category": [
+        "electronics",
+        "semiconductors"
+      ],
+      "tags": [
+        "to-92",
+        "package",
+        "transistor",
+        "tht"
+      ],
+      "footprint": "Package_TO_SOT_THT.pretty/TO-92_Inline.kicad_mod",
+      "designatorPrefix": "Q"
+    },
+    {
+      "id": "official/package-dip-8",
+      "version": "1.0.0",
+      "name": "DIP-8 package",
+      "summary": "8-pin dual in-line package, 7.62 mm row spacing (op-amps, 555 timers).",
+      "category": [
+        "electronics",
+        "semiconductors"
+      ],
+      "tags": [
+        "dip-8",
+        "package",
+        "ic",
+        "op-amp",
+        "tht"
+      ],
+      "footprint": "Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod",
+      "designatorPrefix": "U"
+    },
+    {
+      "id": "official/battery-holder-18650-keystone-1042",
+      "version": "1.0.0",
+      "name": "18650 battery holder, Keystone 1042",
+      "summary": "PCB-mount holder for one 18650 cell.",
+      "category": [
+        "electronics",
+        "power"
+      ],
+      "tags": [
+        "battery holder",
+        "18650",
+        "li-ion",
+        "tht"
+      ],
+      "footprint": "Battery.pretty/BatteryHolder_Keystone_1042_1x18650.kicad_mod",
+      "designatorPrefix": "BT",
+      "vendor": "Keystone Electronics",
+      "mpn": "1042"
+    }
+  ]
+}

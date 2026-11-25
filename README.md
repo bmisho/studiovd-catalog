@@ -48,10 +48,25 @@ copy it here whenever it changes there.
 
 ## Content
 
-Content packs (PLAN 14.7, 14.8) are not here yet. Official content must be CC0-1.0,
-CC-BY-3.0, CC-BY-4.0, CC-BY-SA-4.0 (± KiCad libraries exception), MIT, BSD-2/3-Clause or
-Apache-2.0, carry its licence, source at a pinned revision and modifications, and never
-comes from McMaster-Carr, TraceParts, GrabCAD or 3D ContentCentral.
+Packs are built from KiCad's libraries (PLAN 14.7, 14.8) by StudioVD's own builder
+(`tools/packs` in the app repository; `docs/catalog-content.md` there explains each step):
+
+- `content/kicad/packs/*.json`: what each pack holds, per component the KiCad footprint
+  and model, names, pin names, the schematic block, and every stated value with its source;
+- `content/kicad/lock.json`: the KiCad tag and the SHA-256 of every file the recipes need
+  (`node tools/kicad-sources.mjs lock` after editing a recipe; the build refuses any file
+  that differs);
+- `catalog/app.json`: the StudioVD commit whose builder and install check a build uses.
+
+The **Build packs** workflow (Actions tab) fetches the pinned files, builds the packs,
+installs every one with StudioVD's own install code, releases them as `packs-N`, records
+them in `catalog/packs.json` and starts **Publish catalog**.
+
+Official content must be CC0-1.0, CC-BY-3.0, CC-BY-4.0, CC-BY-SA-4.0 (± KiCad libraries
+exception), MIT, BSD-2/3-Clause or Apache-2.0, carry its licence, source at a pinned revision
+and modifications, and never comes from McMaster-Carr, TraceParts, GrabCAD or 3D
+ContentCentral. KiCad's libraries are CC-BY-SA-4.0 with the KiCad libraries exception; each
+component carries that licence, KiCad's credits and its STEP file's own header.
 
 ## Checks
 
